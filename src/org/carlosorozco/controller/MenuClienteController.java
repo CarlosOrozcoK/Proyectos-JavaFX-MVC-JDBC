@@ -86,7 +86,7 @@ public class MenuClienteController implements Initializable {
 
         }else{
 
-            tblClientes.setItems(listarClientes());
+            tblClientes.setItems(ListarClientes());
 
             colClienteId.setCellValueFactory(new PropertyValueFactory<Cliente, Integer>("clienteId"));
 
@@ -104,7 +104,7 @@ public class MenuClienteController implements Initializable {
 
     }
  
-    public ObservableList<Cliente> listarClientes(){
+    public ObservableList<Cliente> ListarClientes(){
 
         ArrayList<Cliente> clientes = new ArrayList<>();
 

@@ -78,6 +78,6 @@ public class TicketSoporte {
 
     @Override
     public String toString() {
-        return "TicketSoporte{" + "ticketSoporteId=" + ticketSoporteId + ", descripcion=" + descripcion + ", estatus=" + estatus + ", clienteId=" + clienteId + ", cliente=" + cliente + ", facturaId=" + facturaId + '}';
+        return "TicketSoporte" + "ticketSoporteId" + ticketSoporteId + ", descripcion" + descripcion + ", estatus" + estatus + ", clienteId" + clienteId + ", cliente" + cliente + ", facturaId" + facturaId + '}';
     }
 }

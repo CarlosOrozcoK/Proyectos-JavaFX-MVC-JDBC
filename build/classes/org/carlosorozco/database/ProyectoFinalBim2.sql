@@ -10,7 +10,7 @@ create table Clientes(
 	clienteId int not null auto_increment,
     nombre varchar(30) not null,
     apellido varchar(30) not null,
-    nit varchar(15) not null,
+    nitt varchar(15) not null,
     telefono varchar(15) not null,
     direccion varchar(200) not null,
     primary key PK_clienteId (clienteId)
@@ -47,14 +47,47 @@ create table CategoriaProductos(
     Primary key PK_categoriaProductosId (categoriaProductosId)
 );
 
+create table Empleados(
+	empleadoId int not null auto_increment,
+    nombreEmpleado varchar(30) not null,
+    apellidoEmpleado varchar(30) not null,
+    sueldo decimal(10,2) not null,
+    horaEntrada time not null,
+    horaSalida time not null,
+    cargoId int not null,
+    encargadoId int,
+    primary key PK_empleadoId (empleadoId),
+    constraint FK_encargadoId foreign key Emplados (encargadoId)
+		references Empleados (empleadoId),
+	constraint FK_Empleados_Cargos foreign key Cargos (cargoId)
+		references Cargos (cargoId)
+);
+
+create table Facturas(
+	facturaId int not null auto_increment,
+    fecha date not null,
+    hora time not null,
+    clienteId int not null,
+    empleadoId int not null,
+    total decimal,
+    primary key PK_facturaId (facturaId),
+    constraint FK_Facturas_Clientes foreign key Clientes (clienteId)
+	references Clientes (clienteId),
+    constraint FK_Facturas_Empleados foreign key Empleados (empleadoId)
+		references Empleados (empleadoId)
+);
+
 create table TicketSoporte(
 	ticketSoporteId int not null auto_increment,
     descripcionTicket varchar (250),
     estatus varchar (30),
     clienteId int not null,
+    facturaId int not null, 
 	primary key PK_ticketSoporteId (ticketSoporteId),
     constraint FK_TicketSoporte_Clientes foreign key TicketSoporte (clienteId)
-		references Clientes (clienteId)
+		references Clientes (clienteId),
+	constraint FK_TicketSoporte_Facturas foreign key TicketSoporte (facturaId)
+		references Facturas (facturaId)
 );
 
 create table Productos(
@@ -87,35 +120,7 @@ create table Promociones(
 		references Productos (productoId)
 );
 
-create table Empleados(
-	empleadoId int not null auto_increment,
-    nombreEmpleado varchar(30) not null,
-    apellidoEmpleado varchar(30) not null,
-    sueldo decimal(10,2) not null,
-    horaEntrada time not null,
-    horaSalida time not null,
-    cargoId int not null,
-    encargadoId int,
-    primary key PK_empleadoId (empleadoId),
-    constraint FK_encargadoId foreign key Emplados (encargadoId)
-		references Empleados (empleadoId),
-	constraint FK_Empleados_Cargos foreign key Cargos (cargoId)
-		references Cargos (cargoId)
-);
 
-create table Facturas(
-	facturaId int not null auto_increment,
-    fecha date not null,
-    hora time not null,
-    clienteId int not null,
-    empleadoId int not null,
-    total decimal,
-    primary key PK_facturaId (facturaId),
-    constraint FK_Facturas_Clientes foreign key Clientes (clienteId)
-	references Clientes (clienteId),
-    constraint FK_Facturas_Empleados foreign key Empleados (empleadoId)
-		references Empleados (empleadoId)
-);
 
 create table DetalleFactura(
 	detalleFacturaId int not null auto_increment,
@@ -140,15 +145,27 @@ create table DetalleCompra(
 		references Compras (compraId)
 );
 
-insert into clientes(nombre, apellido, telefono, direccion, nit) values
+insert into clientes(nombre, apellido, telefono, direccion, nitt) values
 	('Carlos', 'Morales', '5819-3637', 'Guatemala', '78987452-0'),
     ('Fatima', 'Campos', '5222-2260', 'San Marcos', '1730273-0'),
     ('Jose', 'Morejon', '4145-1054', 'Guatemala','7898543-0');
     
+insert into Cargos(nombreCargo, descripcionCargo) values
+    ('Gerente de Billar', 'Se encarga de mantener todo en orden.');
+
+insert into Empleados(nombreEmpleado, apellidoEmpleado, sueldo, horaEntrada, horaSalida, cargoId, encargadoId) values
+    ('Carlos', 'Orozco', '200.00', '15:00:00', '23:00:00', 1, 1);
+    
+insert into Facturas(fecha, hora, clienteId, empleadoId, total) values
+    ('2024-03-23', '20:00:00', 1, 1, '17.00');
+    
+insert into TicketSoporte(descripcionTicket, estatus, clienteId, facturaId) values
+    ('Error de prueba', 'Recien creado', 1, 1);
+    
 Delimiter $$
 create procedure sp_agregarCliente(nom varchar(30), ape varchar(30), tel varchar(15), dir varchar(200), nt varchar(15))
 Begin
-	insert into Clientes(nombre, apellido, telefono, nit, direccion) values
+	insert into Clientes(nombre, apellido, telefono, nitt, direccion) values
 		(nom, ape, tel, dir, nt);
 End $$
 Delimiter ;
@@ -162,7 +179,7 @@ Begin
 		Clientes.nombre,
 		Clientes.apellido,
 		Clientes.telefono,
-        Clientes.nit,
+        Clientes.nitt,
 		Clientes.direccion
 			From Clientes;
 End$$
@@ -188,7 +205,7 @@ Begin
 		Clientes.nombre,
 		clientes.apellido,
 		clientes.telefono,
-        Clientes.nit,
+        Clientes.nitt,
 		Clientes.direccion
 			From Clientes
 				Where clienteId = cliId;
@@ -205,7 +222,7 @@ Begin
 			nombre = nom,
 			apellido = ape,
 			telefono = tel,
-			nit = nt,
+			nitt = nt,
 			direccion = dir
 				Where clienteId = cliId;
 End$$
@@ -423,24 +440,26 @@ End$$
 Delimiter ;
 
 delimiter $$ 
-create procedure sp_agregarTicketSoporte(In des varchar(250), In est varchar(30), In cliId int)
+create procedure sp_agregarTicketSoporte(In des varchar(250), In cliId int, In facId int)
 begin 
-    insert into TicketSoporte(descripcionTicket, estatus, clienteId) values
-		(des, est, cliId); 
+    insert into TicketSoporte(descripcionTicket, estatus, clienteId, facturaId) values
+		(des, 'Recien creado', cliId, facId); 
 end $$ 
 delimiter ;
  
+
 delimiter $$ 
+
 create procedure sp_listarTicketSoporte() 
 begin 
-    select
-		TicketSoporte.ticketSoporteId,
-		TicketSoporte.descripcionTicket, 
-		TicketSoporte.estatus, 
-		TicketSoporte.clienteId 
-			from TicketSoporte; 
+    select TS.ticketSoporteId, TS.descripcionTicket, TS.estatus,
+    concat("Id: ", C.clienteId, " | ", C.nombre, " ", C.apellido, " ") As cliente, TS.facturaId from TicketSoporte TS
+    Join Clientes C on TS.clienteId = C.clienteId;
 end $$ 
 delimiter ;
+
+call sp_listarTicketSoporte();
+ 
  
 delimiter $$ 
 create procedure sp_eliminarTicketSoporte(In ticId int) 
@@ -457,20 +476,22 @@ begin
 		TicketSoporte.ticketSoporteId, 
         TicketSoporte.descripcionTicket, 
         TicketSoporte.estatus, 
-        TicketSoporte.clienteId 
+        TicketSoporte.clienteId, 
+        TicketSoporte.facturaId
 			from TicketSoporte 
 				where ticketSoporteId = ticId; 
 end $$ 
 delimiter ;
  
 delimiter $$ 
-create procedure sp_editarTicketSoporte(In ticId int, In des varchar(250), In est varchar(30), In cliId int) 
+create procedure sp_editarTicketSoporte(In ticId int, In des varchar(250), In est varchar(30), In cliId int, In facId int) 
 begin 
     update TicketSoporte 
 		set 
 			descripcionTicket = des, 
 			estatus = est, 
-			clienteId = cliId 
+			clienteId = cliId,
+            facturaId = facId
 				where ticketSoporteId = ticId; 
 end $$ 
 delimiter ; 

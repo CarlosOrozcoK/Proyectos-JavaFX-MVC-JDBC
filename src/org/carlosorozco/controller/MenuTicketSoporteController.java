@@ -37,9 +37,9 @@ import org.carlosorozco.system.Main;
 public class MenuTicketSoporteController implements Initializable {
     Main stage;
     
-    private static Connection conexion = null;
-    private static PreparedStatement statement = null;
-    private static ResultSet resultSet = null;
+    private  Connection conexion = null;
+    private PreparedStatement statement = null;
+    private ResultSet resultSet = null;
     
     @FXML
     TextField tfTicketId;
