@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,5 +16,16 @@
             <Image url="@../image/Menu%20Ticket%20Soporte.png" />
          </image>
       </ImageView>
+      <TextField fx:id="tfTicketId" layoutX="27.0" layoutY="206.0" prefHeight="59.0" prefWidth="201.0" />
+      <TextArea fx:id="taDescripcion" layoutX="14.0" layoutY="375.0" prefHeight="139.0" prefWidth="282.0" />
+      <ComboBox fx:id="cmbEstatus" layoutX="15.0" layoutY="569.0" prefHeight="25.0" prefWidth="226.0" />
+      <ComboBox fx:id="cmbCliente" layoutX="331.0" layoutY="206.0" prefHeight="25.0" prefWidth="201.0" />
+      <ComboBox fx:id="cmbFactura" layoutX="648.0" layoutY="206.0" prefHeight="25.0" prefWidth="191.0" />
+      <TableView layoutX="500.0" layoutY="360.0" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
