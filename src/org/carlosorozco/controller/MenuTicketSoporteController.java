@@ -137,7 +137,7 @@ public class MenuTicketSoporteController implements Initializable {
         
         try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_listarTicketsSoporte()";
+            String sql = "call sp_listarTicketSoporte()";
             statement = conexion.prepareStatement(sql);
             resultSet = statement.executeQuery();
             
@@ -186,9 +186,9 @@ public class MenuTicketSoporteController implements Initializable {
                 String apellido = resultSet.getString("apellido");
                 String telefono = resultSet.getString("telefono");
                 String direccion = resultSet.getString("direccion");
-                String nit = resultSet.getString("nit");
+                String nitt = resultSet.getString("nitt");
                 
-                clientes.add(new Cliente(clienteId, nombre, apellido, telefono, direccion, nit));
+                clientes.add(new Cliente(clienteId, nombre, apellido, telefono, direccion, nitt));
             }
         }catch(SQLException e){
             System.out.println(e.getMessage());

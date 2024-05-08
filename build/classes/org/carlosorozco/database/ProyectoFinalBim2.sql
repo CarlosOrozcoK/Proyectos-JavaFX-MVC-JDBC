@@ -151,7 +151,7 @@ insert into clientes(nombre, apellido, telefono, direccion, nitt) values
     ('Jose', 'Morejon', '4145-1054', 'Guatemala','7898543-0');
     
 insert into Cargos(nombreCargo, descripcionCargo) values
-    ('Gerente de Billar', 'Se encarga de mantener todo en orden.');
+    ('Gerente de ventas', 'Se encarga de hacer inventario y comprar todo');
 
 insert into Empleados(nombreEmpleado, apellidoEmpleado, sueldo, horaEntrada, horaSalida, cargoId, encargadoId) values
     ('Carlos', 'Orozco', '200.00', '15:00:00', '23:00:00', 1, 1);
@@ -228,12 +228,12 @@ Begin
 End$$
 Delimiter ;
  
-Call sp_EditarCliente(3, 'Josue', 'Boror', '56871245', '13548217-0', 'Ciudad');
+Call sp_EditarCliente(3, 'Carlos', 'Orozco', '39679413', '13548217-0', 'Guatemala');
 
 Delimiter $$
 create procedure sp_agregarCargo(In nom varchar(30), In des varchar(100))
 Begin
-	insert into Cargos(nombreCargo, descripcion) values
+	insert into Cargos(nombreCargo, descripcionCargo) values
 		(nom, des);
 End $$
 Delimiter ;
@@ -244,7 +244,7 @@ Begin
 	Select
 		Cargos.cargoId,
 		Cargos.nombreCargo,
-		Cargos.descripcion
+		Cargos.descripcionCargo
 			From Cargos;
 End$$
 Delimiter ;
@@ -263,7 +263,7 @@ Begin
 	Select
 		Cargos.cargoId,
 		Cargos.nombreCargo,
-		Cargos.descripcion
+		Cargos.descripcionCargo
 			From Cargos
 				Where cargoId = carId;
 End$$
@@ -275,7 +275,7 @@ Begin
 	Update Cargos
 		Set
 			nombreCargo = nom,
-			descripcion = des
+			descripcionCargo = des
 				Where cargoId = carId;
 End$$
 Delimiter ;

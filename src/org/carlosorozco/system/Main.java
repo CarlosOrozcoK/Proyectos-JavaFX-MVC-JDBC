@@ -12,6 +12,10 @@ import org.carlosorozco.controller.FormClienteController;
 import org.carlosorozco.controller.MenuClienteController;
 import org.carlosorozco.controller.MenuPrincipalController;
 import org.carlosorozco.controller.MenuTicketSoporteController;
+import org.carlosorozco.controller.FormCargoController;
+import org.carlosorozco.controller.FormCompraController;
+import org.carlosorozco.controller.MenuCargoController;
+import org.carlosorozco.controller.MenuCompraController;
 
 public class Main extends Application {
     private final String URLVIEW = "/org/carlosorozco/view/";
@@ -85,6 +89,41 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+     public void menuCargoView(){
+        try{
+            MenuCargoController menuCargoView = (MenuCargoController)switchScene("MenuCargoView.fxml", 1200, 750);
+            menuCargoView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
     
+    public void formCargoView(int op){
+        try{
+            FormCargoController formCargoView = (FormCargoController)switchScene("FormCargoView.fxml", 500, 750);
+            formCargoView.setOp(op);
+            formCargoView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    public void menuCompraView(){
+        try{
+            MenuCompraController menuCompraView = (MenuCompraController)switchScene("MenuCompraView.fxml", 1200, 750);
+            menuCompraView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
     
+    public void formCompraView(int op){
+        try{
+            FormCompraController formCompraView = (FormCompraController)switchScene("FormCompraView.fxml", 500, 750);
+            formCompraView.setOp(op);
+            formCompraView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

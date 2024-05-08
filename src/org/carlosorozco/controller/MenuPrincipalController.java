@@ -12,7 +12,7 @@ import org.carlosorozco.system.Main;
 public class MenuPrincipalController implements Initializable {
     private Main stage;
     @FXML
-    MenuItem btnClientes, btnTickets;
+    MenuItem btnClientes, btnTickets, btnCargos, btnCompras;
     
     @FXML
     public void handleButtonAction(ActionEvent event) throws Exception{
@@ -20,6 +20,10 @@ public class MenuPrincipalController implements Initializable {
             stage.menuClienteView();
         } else if(event.getSource() == btnTickets){
             stage.menuTicketSoporteView();
+        }else if(event.getSource() == btnCargos){
+            stage.menuCargoView();
+        }else if(event.getSource() == btnCompras){
+            stage.menuCompraView();
         }
     }
     
