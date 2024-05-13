@@ -13,9 +13,15 @@ import org.carlosorozco.controller.MenuClienteController;
 import org.carlosorozco.controller.MenuPrincipalController;
 import org.carlosorozco.controller.MenuTicketSoporteController;
 import org.carlosorozco.controller.FormCargoController;
+import org.carlosorozco.controller.FormCategoriaProductoController;
 import org.carlosorozco.controller.FormCompraController;
 import org.carlosorozco.controller.MenuCargoController;
 import org.carlosorozco.controller.MenuCompraController;
+import org.carlosorozco.controller.MenuDistribuidorController;
+import org.carlosorozco.controller.FormDistribuidorController;
+import org.carlosorozco.controller.MenuCategoriaProductoController;
+
+
 
 public class Main extends Application {
     private final String URLVIEW = "/org/carlosorozco/view/";
@@ -122,6 +128,42 @@ public class Main extends Application {
             FormCompraController formCompraView = (FormCompraController)switchScene("FormCompraView.fxml", 500, 750);
             formCompraView.setOp(op);
             formCompraView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    public void menuDistribuidorView(){
+        try{
+            MenuDistribuidorController menuDistribuidorView = (MenuDistribuidorController)switchScene("MenuDistribuidorView.fxml", 1200, 750);
+            menuDistribuidorView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void formDistribuidorView(int op){
+        try{
+            FormDistribuidorController formDistribuidorView = (FormDistribuidorController)switchScene("FormDistribuidorView.fxml", 500, 750);
+            formDistribuidorView.setOp(op);
+            formDistribuidorView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+     public void menuCategoriaProductoView(){
+        try{
+            MenuCategoriaProductoController menuCategoriaProductoView = (MenuCategoriaProductoController)switchScene("MenuCategoriaProductoView.fxml", 1200, 750);
+            menuCategoriaProductoView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void formCategoriaProductoView(int op){
+        try{
+            FormCategoriaProductoController formCategoriaProductoView = (FormCategoriaProductoController)switchScene("FormCategoriaProductoView.fxml", 500, 750);
+            formCategoriaProductoView.setOp(op);
+            formCategoriaProductoView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
