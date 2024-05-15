@@ -41,10 +41,10 @@ create table Distribuidores(
 );
 
 create table CategoriaProductos(
-	categoriaProductosId int not null auto_increment,
+	categoriaProductoId int not null auto_increment,
     nombreCategoria varchar(30) not null,
     descripcionCategoria varchar(100) not null,
-    Primary key PK_categoriaProductosId (categoriaProductosId)
+    Primary key PK_categoriaProductoId (categoriaProductoId)
 );
 
 create table Empleados(
@@ -100,12 +100,12 @@ create table Productos(
     precioCompra decimal(10, 2) not null,
     imagenProducto blob,
     distribuidorId int not null,
-    categoriaProductosId int not null,
+    categoriaProductoId int not null,
     primary key PK_productoId (productoId),
     constraint FK_Productos_Distribuidores foreign key Distribuidores (distribuidorId)
 	references Distribuidores (distribuidorId),
-    constraint FK_Productos_CategoriaProductos foreign key CategoriaProductos (categoriaProductosId)
-		references CategoriaProductos (categoriaProductosId)
+    constraint FK_Productos_CategoriaProductos foreign key CategoriaProductos (categoriaProductoId)
+		references CategoriaProductos (categoriaProductoId)
 );
 
 create table Promociones(
@@ -401,7 +401,7 @@ Delimiter $$
 Create procedure sp_ListarCategoriaProductos()
 Begin
 	Select
-		CategoriaProductos.categoriaProductosId,
+		CategoriaProductos.categoriaProductoId,
 		CategoriaProductos.nombreCategoria,
 		CategoriaProductos.descripcionCategoria
 			From CategoriaProductos;
@@ -412,7 +412,7 @@ Delimiter $$
 Create procedure sp_EliminarCategoriaProducto(In capId int)
 Begin
 	Delete from CategoriaProductos
-		Where categoriaProductosId = capId;
+		Where categoriaProductoId = capId;
 End$$
 Delimiter ;
 
@@ -420,11 +420,11 @@ Delimiter $$
 Create procedure sp_BuscarCategoriaProducto(In capId int)
 Begin
 	Select
-		CategoriaProductos.categoriaProductosId,
+		CategoriaProductos.categoriaProductoId,
 		CategoriaProductos.nombreCategoria,
 		CategoriaProductos.descripcionCategoria
 			From CategoriaProductos
-				Where categoriaProductosId = capId;
+				Where categoriaProductoId = capId;
 End$$
 Delimiter ;
 
@@ -435,8 +435,8 @@ Begin
 		Set
 			nombreCategoria = nom,
 			descripcionCategoria = des
-				Where categoriaProductosId = capId;
-End$$
+				Where categoriaProductoId = capId;
+End$$ 
 Delimiter ;
 
 delimiter $$ 
@@ -626,26 +626,19 @@ end $$
 delimiter ;
 
 delimiter $$
-create procedure sp_agregarEmpleado(In nom varchar(30), In ape varchar(30), In sue decimal(10,2), In horaE time, In horaS time, In carId int)
+create procedure sp_agregarEmpleado(In nom varchar(30), In ape varchar(30), In sue decimal(10,2), In horaE time, In horaS time, In carId int, in encId int)
 begin
-    insert into Empleados(nombreEmpleado,apellidoEmpleado,sueldo,horaEntrada,horaSalida,cargoId) values
-		(nom, ape, sue, horaE, horaS, carId);
+    insert into Empleados(nombreEmpleado,apellidoEmpleado,sueldo,horaEntrada,horaSalida,cargoId, EncargadoId) values
+		(nom, ape, sue, horaE, horaS, carId, encId);
 end $$
 delimiter ;
 
 delimiter $$
 create procedure sp_listarEmpleados()
 begin
-    select
-		Empleados.empleadoId,
-        Empleados.nombreEmpleado,
-        Empleados.apellidoEmpleado,
-        Empleados.sueldo,
-        Empleados.horaEntrada,
-        Empleados.horaSalida,
-        Empleados.cargoId,
-        Empleados.encargadoId
-			from Empleados;
+   select E.empleadoId, E.nombreEmpleado, E.apellidoEmpleado, E.sueldo, E.horaEntrada, E.horaSalida,
+		   concat("Id: ", C.cargoId, " | ", C.nombreCargo, " | ", C.descripcionCargo) As Cargo, concat("Id: ", E.encargadoId) As Encargado from Empleados E
+           Join Cargos C on E.cargoId = C.cargoId;
 end $$
 delimiter ;
 

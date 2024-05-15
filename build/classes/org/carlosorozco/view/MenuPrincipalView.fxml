@@ -22,14 +22,13 @@
                   <MenuItem fx:id="btnTickets" mnemonicParsing="false" onAction="#handleButtonAction" text="TicketsSoporte" />
                   <MenuItem fx:id="btnCargos" mnemonicParsing="false" onAction="#handleButtonAction" text="Cargos" />
                   <MenuItem fx:id="btnCompras" mnemonicParsing="false" onAction="#handleButtonAction" text="Compras" />
+                  <MenuItem fx:id="btnDistribuidores" mnemonicParsing="false" onAction="#handleButtonAction" text="Distribuidores" />
+                  <MenuItem fx:id="btnCategoriaProducto" mnemonicParsing="false" onAction="#handleButtonAction" text="Categoria Producto" />
+                  <MenuItem fx:id="btnEmpleados" mnemonicParsing="false" onAction="#handleButtonAction" text="Empleados" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Reportes" />
-          <Menu mnemonicParsing="false" text="Ayuda">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Acerca de" />
-            </items>
-          </Menu>
+          <Menu mnemonicParsing="false" text="Ayuda" />
         </menus>
       </MenuBar>
    </children>

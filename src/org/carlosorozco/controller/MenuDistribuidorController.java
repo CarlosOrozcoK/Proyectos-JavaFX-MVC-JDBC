@@ -42,7 +42,7 @@ public class MenuDistribuidorController implements Initializable {
     TableView tblDistribuidores;
     
     @FXML
-    TableColumn colDistribuidorId, colNombre, colTelefono, colNit, colDireccion, colWeb;
+        TableColumn colDistribuidorId, colNombre, colTelefono, colNit, colDireccion, colWeb;
     
     @FXML
     Button btnRegresar, btnAgregar, btnEditar, btnEliminar, btnBuscar;
