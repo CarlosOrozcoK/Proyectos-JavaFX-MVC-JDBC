@@ -213,10 +213,10 @@ public class MenuFacturaController implements Initializable {
                 String nombre = resultSet.getString("nombre");  
                 String apellido = resultSet.getString("apellido");
                 String telefono = resultSet.getString("telefono");
-                String nit = resultSet.getString("nit");
+                String nitt = resultSet.getString("nitt");
                 String direccion = resultSet.getString("direccion");
                 
-                clientes.add(new Cliente(clienteId, nombre, apellido, telefono, nit, direccion));
+                clientes.add(new Cliente(clienteId, nombre, apellido, telefono, nitt, direccion));
             }
         }catch(SQLException e){
             System.out.println(e.getMessage());

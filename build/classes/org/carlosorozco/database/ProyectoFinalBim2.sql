@@ -704,14 +704,10 @@ delimiter ;
 delimiter $$
 create procedure sp_listarFacturas()
 begin
-    select
-        Facturas.facturaId,
-        Facturas.fecha,
-        Facturas.hora,
-        Facturas.clienteId,
-        Facturas.empleadoId,
-        Facturas.total
-			from Facturas;
+   select F.facturaId, F.fecha, F.hora, F.total,
+		   concat("Id: ", C.clienteId, " | ", C.nombre, " ", C.apellido) As Cliente, concat("Id: ", E.empleadoId, " | ", E.nombreEmpleado) As Empleado from Facturas F
+           Join Clientes C on F.clienteId = C.clienteId
+           Join Empleados E on F.empleadoId = E.empleadoId;
 end $$
 delimiter ;
 

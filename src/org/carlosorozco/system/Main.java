@@ -21,8 +21,8 @@ import org.carlosorozco.controller.MenuDistribuidorController;
 import org.carlosorozco.controller.FormDistribuidorController;
 import org.carlosorozco.controller.MenuCategoriaProductoController;
 import org.carlosorozco.controller.MenuEmpleadoController;
-
-
+import org.carlosorozco.controller.MenuFacturaController;
+import org.carlosorozco.controller.MenuPromocionController;
 
 public class Main extends Application {
     private final String URLVIEW = "/org/carlosorozco/view/";
@@ -32,7 +32,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         this.stage = stage;
-            stage.setTitle("Super Kinal S.A");
+        stage.setTitle("Super Kinal Orozco");
         menuPrincipalView();
         stage.show();
     }
@@ -173,6 +173,22 @@ public class Main extends Application {
         try{
             MenuEmpleadoController menuEmpleadoView = (MenuEmpleadoController)switchScene("MenuEmpleadoView.fxml", 1200, 750);
             menuEmpleadoView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    public void menuFacturaView(){
+        try{
+            MenuFacturaController menuFacturaView = (MenuFacturaController)switchScene("MenuFacturaView.fxml", 1200, 750);
+            menuFacturaView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    public void menuPromocionView(){
+        try{
+            MenuPromocionController menuPromocionView = (MenuPromocionController)switchScene("MenuPromocionView.fxml", 1200, 750);
+            menuPromocionView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
