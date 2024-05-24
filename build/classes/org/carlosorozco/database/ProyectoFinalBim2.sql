@@ -499,7 +499,7 @@ delimiter ;
 delimiter $$
 create procedure sp_agregarProducto(In nom varchar(50), In des varchar(100), In cant int, In preU decimal(10,2), In preM decimal(10,2), In preC decimal(10,2), In img blob, In disId int, In capId int)
 begin
-    insert into Productos(nombreProducto, descripcionProducto, cantidadStock, precioVentaUnitario, precioVentaMayor, precioCompra, imagenProducto, distribuidorId, categoriaProductosId) values 
+    insert into Productos(nombreProducto, descripcionProducto, cantidadStock, precioVentaUnitario, precioVentaMayor, precioCompra, imagenProducto, distribuidorId, categoriaProductoId) values 
 		(nom, des, cant, preU, preM, preC, img, disId, capId);
 end $$
 delimiter ; 
@@ -517,7 +517,7 @@ begin
         Productos.precioCompra,
         Productos.imagenProducto,
         Productos.distribuidorId,
-        Productos.categoriaProductosId
+        Productos.categoriaProductoId
 			from Productos;
 end $$
 delimiter ;
@@ -535,7 +535,7 @@ begin
         Productos.precioCompra,
         Productos.imagenProducto,
         Productos.distribuidorId,
-        Productos.categoriaProductosId
+        Productos.categoriaProductoId
 			from Productos
 				where productoId = proId;
 end $$
@@ -561,7 +561,7 @@ begin
 			precioCompra = preC,
 			imagenProducto = img,
 			distribuidorId = disId,
-			categoriaProductosId = capId
+			categoriaProductoId = capId
 				where productoId = proId;
 end $$
 delimiter ;
@@ -759,11 +759,10 @@ delimiter ;
 delimiter $$
 create procedure sp_listarDetalleFactura()
 begin
-    select
-        DetalleFactura.detalleFacturaId,
-        DetalleFactura.facturaId,
-        DetalleFactura.productoId
-			from DetalleFactura;
+    select DF.detalleFacturaId,
+		   concat("Id: ", F.facturaId) As factura, concat("Id: ", P.productoId, " | ", P.nombreProducto, " | ", P.descripcionProducto) As producto From DetalleFactura DF
+           Join Facturas F on DF.facturaId = F.facturaId
+           Join Productos P on DF.productoId = P.productoId;
 end $$
 delimiter ;
 

@@ -20,6 +20,8 @@ import org.carlosorozco.controller.MenuCompraController;
 import org.carlosorozco.controller.MenuDistribuidorController;
 import org.carlosorozco.controller.FormDistribuidorController;
 import org.carlosorozco.controller.MenuCategoriaProductoController;
+import org.carlosorozco.controller.MenuDetalleCompraController;
+import org.carlosorozco.controller.MenuDetalleFacturaController;
 import org.carlosorozco.controller.MenuEmpleadoController;
 import org.carlosorozco.controller.MenuFacturaController;
 import org.carlosorozco.controller.MenuPromocionController;
@@ -193,4 +195,22 @@ public class Main extends Application {
             System.out.println(e.getMessage());
         }
     }
-}
+    
+    public void menuDetalleCompraView(){
+        try{
+            MenuDetalleCompraController menuDetalleCompraView = (MenuDetalleCompraController)switchScene("MenuDetalleCompraView.fxml", 1200, 750);
+            menuDetalleCompraView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void menuDetalleFacturaView(){
+        try{
+            MenuDetalleFacturaController menuDetalleFacturaView = (MenuDetalleFacturaController)switchScene("MenuDetalleFacturaView.fxml", 1200, 750);
+            menuDetalleFacturaView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+}   
