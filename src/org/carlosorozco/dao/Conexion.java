@@ -7,8 +7,8 @@ import java.sql.SQLException;
 public class Conexion {
     private static Conexion instance;
     private String jdbcurl = "jdbc:mysql://localhost:3306/MercaDB?serverTimezone=GMT-6&useSSL=false";
-    private String user = "root";
-    private String password = "admin";
+    private String user = "carlosorozco";
+    private String password = "39679413";
     
     private Conexion(){
         try{

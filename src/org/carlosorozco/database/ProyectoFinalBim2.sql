@@ -145,6 +145,25 @@ create table DetalleCompra(
 		references Compras (compraId)
 );
 
+create table NivelesAcceso(
+	nivelAccesoId int not null auto_increment,
+    nivelAcceso varchar(40) not null,
+    primary key PK_nivelAccesoId (nivelAccesoId)
+);
+
+create table Usuarios(
+	usuarioId int not null auto_increment,
+    usuario varchar(30) not null,
+	contrasenia varchar(100) not null,
+    nivelAccesoId int not null,
+    empleadoId int not null,
+    primary key PK_usuarioId(usuarioId),
+    constraint FK_Usuarios_NivelesAcceso foreign key Usuarios(nivelAccesoId)
+		references NivelesAcceso(nivelAccesoId),
+	constraint FK_Usuarios_Empleados foreign key Usuarios(empleadoId)
+		references Empleados(empleadoId)
+);
+
 insert into clientes(nombre, apellido, telefono, direccion, nitt) values
 	('Carlos', 'Morales', '5819-3637', 'Guatemala', '78987452-0'),
     ('Fatima', 'Campos', '5222-2260', 'San Marcos', '1730273-0'),
@@ -161,6 +180,12 @@ insert into Facturas(fecha, hora, clienteId, empleadoId, total) values
     
 insert into TicketSoporte(descripcionTicket, estatus, clienteId, facturaId) values
     ('Error de prueba', 'Recien creado', 1, 1);
+    
+insert into NivelesAcceso(nivelAcceso) values
+    ('admin'),
+    ('usuario');
+    
+select * from Usuarios;
     
 Delimiter $$
 create procedure sp_agregarCliente(nom varchar(30), ape varchar(30), tel varchar(15), dir varchar(200), nt varchar(15))
@@ -849,3 +874,38 @@ begin
 				where detalleCompraId = detComId;
 end $$
 delimiter ;
+
+delimiter $$
+create procedure sp_agregarUsuario(In usu varchar(30), In con varchar(100), In nivAccId int, empId int)
+begin
+    insert into Usuarios(usuario, contrasenia, nivelAccesoId, empleadoId) values 
+		(usu, con, nivAccId, empId);
+end $$
+delimiter ;
+
+delimiter $$
+create procedure sp_buscarUsuario(usu varchar(40))
+begin
+	select * from Usuarios
+		where usuario = usu;
+end$$
+delimiter ;
+
+delimiter $$
+create procedure sp_listarNivelesAcceso()
+begin
+	select * from NivelesAcceso;
+end $$
+delimiter ;
+
+
+delimiter $$
+create procedure sp_listarUsuarios()
+begin 
+	select*from Usuarios;
+end $$
+delimiter ;
+
+call sp_listarUsuarios();
+
+-- truncate table Usuarios;

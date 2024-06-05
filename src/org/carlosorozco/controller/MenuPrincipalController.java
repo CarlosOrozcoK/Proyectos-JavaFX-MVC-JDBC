@@ -30,7 +30,7 @@ public class MenuPrincipalController implements Initializable {
         }else if(event.getSource() == btnCategoriaProducto){
             stage.menuCategoriaProductoView();
         }else if(event.getSource() == btnEmpleados){
-            stage.menuEmpleadoView();
+            stage.menuEmpleadoView(4);
         }else if(event.getSource() == btnFacturas){
             stage.menuFacturaView();
         }else if(event.getSource() == btnPromociones){

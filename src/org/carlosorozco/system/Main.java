@@ -19,11 +19,13 @@ import org.carlosorozco.controller.MenuCargoController;
 import org.carlosorozco.controller.MenuCompraController;
 import org.carlosorozco.controller.MenuDistribuidorController;
 import org.carlosorozco.controller.FormDistribuidorController;
+import org.carlosorozco.controller.FormUsuarioController;
 import org.carlosorozco.controller.MenuCategoriaProductoController;
 import org.carlosorozco.controller.MenuDetalleCompraController;
 import org.carlosorozco.controller.MenuDetalleFacturaController;
 import org.carlosorozco.controller.MenuEmpleadoController;
 import org.carlosorozco.controller.MenuFacturaController;
+import org.carlosorozco.controller.MenuLoginController;
 import org.carlosorozco.controller.MenuPromocionController;
 
 public class Main extends Application {
@@ -35,7 +37,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         this.stage = stage;
         stage.setTitle("Super Kinal Orozco");
-        menuPrincipalView();
+       menuLoginView();
         stage.show();
     }
     
@@ -171,9 +173,10 @@ public class Main extends Application {
             System.out.println(e.getMessage());
         }
     }
-    public void menuEmpleadoView(){
+    public void menuEmpleadoView(int op){
         try{
             MenuEmpleadoController menuEmpleadoView = (MenuEmpleadoController)switchScene("MenuEmpleadoView.fxml", 1200, 750);
+            menuEmpleadoView.setOp(op);
             menuEmpleadoView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -213,4 +216,24 @@ public class Main extends Application {
             System.out.println(e.getMessage());
         }
     }
+    
+     public void formUsuarioView(){
+        try{
+            FormUsuarioController formUsuarioView = (FormUsuarioController)switchScene("FormUsuarioView.fxml", 500, 750);
+            formUsuarioView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void menuLoginView(){
+        try{
+            MenuLoginController MenuLoginView = (MenuLoginController)switchScene("MenuLoginView.fxml", 500, 750);
+            MenuLoginView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+  
 }   

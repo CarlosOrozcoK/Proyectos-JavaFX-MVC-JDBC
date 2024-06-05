@@ -62,8 +62,12 @@ public class MenuEmpleadoController implements Initializable {
             stage.menuPrincipalView();
         }else if(event.getSource() == btnGuardar){
             if(tfEmpleadoId.getText().equals("")){
-                agregarEmpleado();
-                cargarDatos();
+                if(op == 4){
+                    agregarEmpleado();
+                    cargarDatos();
+                    stage.formUsuarioView();
+                    op = 0;
+                }
             }else{
                 editarEmpleado();
                 cargarDatos();
@@ -440,5 +444,10 @@ public class MenuEmpleadoController implements Initializable {
     public void setStage(Main stage) {
         this.stage = stage;
     }
+
+    public void setOp(int op) {
+        this.op = op;
+    }
+    
     
 }
